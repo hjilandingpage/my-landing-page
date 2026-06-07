@@ -29,14 +29,37 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// 스크롤 시 헤더 스타일 변경
+// 스크롤 시 헤더 스타일 변경 및 ScrollSpy (메뉴 활성화)
 const header = document.getElementById('header');
+const sections = document.querySelectorAll('section');
+const navItems = document.querySelectorAll('.nav-links a.nav-link');
+
 window.addEventListener('scroll', () => {
+    let current = '';
+    
+    // 1. 헤더 글래스모피즘(블러) 배경 처리
     if (window.scrollY > 50) {
         header.classList.add('scrolled');
     } else {
         header.classList.remove('scrolled');
     }
+
+    // 2. ScrollSpy 로직 (현재 보고 있는 섹션 찾기)
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        // 화면의 1/3 지점(150px) 정도에 섹션이 걸칠 때부터 인식되게 보정
+        if (scrollY >= (sectionTop - 150)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    // 3. 해당하는 메뉴 항목에 밑줄(active) 표시
+    navItems.forEach(item => {
+        item.classList.remove('active');
+        if (current && item.getAttribute('href').includes(current)) {
+            item.classList.add('active');
+        }
+    });
 });
 
 // 스크롤 애니메이션 (Intersection Observer)
@@ -100,6 +123,31 @@ accordionHeaders.forEach(header => {
     });
 });
 
+// FAQ 아코디언 로직
+const faqHeaders = document.querySelectorAll('.faq-header');
+
+faqHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const body = header.nextElementSibling;
+        const isActive = item.classList.contains('active');
+        
+        // 모든 FAQ 닫기
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+            otherItem.classList.remove('active');
+            otherItem.querySelector('.faq-header').setAttribute('aria-expanded', 'false');
+            otherItem.querySelector('.faq-body').style.maxHeight = null;
+        });
+
+        // 클릭한 항목 열기
+        if (!isActive) {
+            item.classList.add('active');
+            header.setAttribute('aria-expanded', 'true');
+            body.style.maxHeight = body.scrollHeight + "px";
+        }
+    });
+});
+
 // 이메일 웹사이트 직접 연결로 변경하여 복사 로직 제거함
 
 // 히어로 섹션 타이핑 효과 로직
@@ -147,4 +195,142 @@ function typeEffect() {
 // 타이핑 엘리먼트가 존재하면 애니메이션 시작
 if (typingTextElement) {
     typeEffect();
+}
+
+// 카카오 상담 플로팅 버튼 말풍선 로직
+const kakaoTooltip = document.getElementById('kakao-tooltip');
+
+if (kakaoTooltip) {
+    // 1. 페이지 로드 후 3초 뒤에 말풍선 표시
+    setTimeout(() => {
+        kakaoTooltip.classList.add('show');
+    }, 3000);
+
+    // 2. 말풍선을 클릭하면 다시 숨김
+    kakaoTooltip.addEventListener('click', () => {
+        kakaoTooltip.classList.remove('show');
+    });
+}
+
+// 실적 숫자 카운터 애니메이션 로직
+const statsSection = document.getElementById('stats');
+const counters = document.querySelectorAll('.counter');
+
+if (statsSection && counters.length > 0) {
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 섹션이 보이면 애니메이션 시작
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // 2초 (2000ms)
+                    const frameDuration = 1000 / 60; // 60fps 기준
+                    const totalFrames = Math.round(duration / frameDuration);
+                    const increment = target / totalFrames;
+                    
+                    let currentCount = 0;
+                    let currentFrame = 0;
+
+                    const updateCounter = setInterval(() => {
+                        currentFrame++;
+                        currentCount += increment;
+
+                        if (currentFrame >= totalFrames) {
+                            counter.innerText = target;
+                            clearInterval(updateCounter);
+                            // 애니메이션이 끝나면 뒤의 기호(+ 또는 %)를 보여줌
+                            const suffix = counter.nextElementSibling;
+                            if (suffix && suffix.classList.contains('stat-suffix')) {
+                                suffix.classList.remove('hidden');
+                            }
+                        } else {
+                            counter.innerText = Math.round(currentCount);
+                        }
+                    }, frameDuration);
+                });
+                // 한 번 실행 후 관찰 중단 (다시 스크롤해도 또 실행되지 않도록)
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 }); // 화면에 50% 정도 보일 때 실행
+
+    counterObserver.observe(statsSection);
+}
+
+// 수강 후기 슬라이더 로직
+const reviewTrack = document.getElementById('review-track');
+if (reviewTrack) {
+    const cards = document.querySelectorAll('.review-card');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const dotsContainer = document.getElementById('slider-dots');
+    
+    let currentSlide = 0;
+    const totalSlides = cards.length;
+    let slideInterval;
+
+    // 슬라이드 개수에 맞춰 하단 점(dot) 자동 생성
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        
+        // 점 클릭 시 해당 슬라이드로 이동
+        dot.addEventListener('click', () => {
+            goToSlide(i);
+            resetAutoSlide();
+        });
+        dotsContainer.appendChild(dot);
+    }
+    
+    const dots = document.querySelectorAll('.dot');
+
+    // 슬라이드 이동 함수
+    function goToSlide(index) {
+        if (index < 0) {
+            currentSlide = totalSlides - 1; // 처음에서 이전 누르면 맨 끝으로
+        } else if (index >= totalSlides) {
+            currentSlide = 0; // 끝에서 다음 누르면 맨 처음으로
+        } else {
+            currentSlide = index;
+        }
+        
+        // 카드 이동 (100%씩 밀어내기)
+        reviewTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // 점 색상 업데이트
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[currentSlide].classList.add('active');
+    }
+
+    // 다음/이전 버튼 이벤트
+    nextBtn.addEventListener('click', () => {
+        goToSlide(currentSlide + 1);
+        resetAutoSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        goToSlide(currentSlide - 1);
+        resetAutoSlide();
+    });
+
+    // 3초마다 자동 슬라이드
+    function startAutoSlide() {
+        slideInterval = setInterval(() => {
+            goToSlide(currentSlide + 1);
+        }, 3000);
+    }
+
+    // 사용자가 수동으로 조작하면 타이머 초기화 (안 그러면 바로 넘어가버림)
+    function resetAutoSlide() {
+        clearInterval(slideInterval);
+        startAutoSlide();
+    }
+
+    // 마우스를 올리고 있을 때는 멈추고, 떼면 다시 시작 (사용자 배려)
+    const sliderWrap = document.querySelector('.review-slider-wrap');
+    sliderWrap.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    sliderWrap.addEventListener('mouseleave', startAutoSlide);
+
+    startAutoSlide();
 }

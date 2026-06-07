@@ -16,19 +16,21 @@
     <!-- 헤더 / 네비게이션 -->
     <header id="header">
         <div class="nav-container">
-            <a href="#" class="logo">황정임</a>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <a href="#hero" class="logo">황정임</a>
             <nav class="nav-links">
-                <a href="#hero">홈</a>
-                <a href="#about">강사 소개</a>
-                <a href="#class">강의 및 커리큘럼</a>
-                <a href="#gallery">강의 갤러리</a>
-                <a href="#contact" class="nav-btn">문의 / 신청</a>
+                <a href="#about" class="nav-link">소개</a>
+                <a href="#class" class="nav-link">강의</a>
+                <a href="#gallery" class="nav-link">커리큘럼</a>
+                <a href="#contact" class="nav-link">문의</a>
             </nav>
+            <div class="nav-right">
+                <a href="#contact" class="btn-nav-kakao">카카오 상담</a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -44,6 +46,30 @@
             </div>
             <div class="hero-image">
                 <img src="profile.png" alt="황정임 강사 프로필">
+            </div>
+        </div>
+    </section>
+
+    <!-- 1.5. 실적 카운터 섹션 -->
+    <section id="stats" class="bg-purple fade-in" style="background-color: #4A1D96; padding: 60px 0;">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number"><span class="counter" data-target="500">0</span><span class="stat-suffix hidden">+</span></div>
+                    <div class="stat-label">누적 수강생</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number"><span class="counter" data-target="6">0</span><span class="stat-suffix hidden">+</span></div>
+                    <div class="stat-label">강의 경력</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number"><span class="counter" data-target="98">0</span><span class="stat-suffix hidden">%</span></div>
+                    <div class="stat-label">수업 만족도</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number"><span class="counter" data-target="3">0</span><span class="stat-suffix hidden">+</span></div>
+                    <div class="stat-label">운영 채널</div>
+                </div>
             </div>
         </div>
     </section>
@@ -236,6 +262,129 @@
         </div>
     </section>
 
+    <!-- 4.5. 수강 후기 섹션 -->
+    <section id="reviews" class="bg-purple fade-in text-center" style="background-color: #4A1D96; color: white;">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">수강 후기</h2>
+            <p class="section-desc" style="color: #E2D9F3;">황정임 강사와 함께한 수강생들의 생생한 이야기입니다.</p>
+            
+            <div class="review-slider-wrap">
+                <button class="slider-btn prev-btn" aria-label="이전 후기"><i class="fa-solid fa-chevron-left"></i></button>
+                
+                <div class="review-slider-viewport">
+                    <div class="review-slider-track" id="review-track">
+                        <!-- 후기 1 -->
+                        <div class="review-card">
+                            <div class="review-quote"><i class="fa-solid fa-quote-left"></i></div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">"처음엔 AI가 너무 어렵게 느껴졌는데<br>황정임 선생님이 하나하나 알려주셔서<br>저도 할 수 있다는 자신감이 생겼어요!<br>지금은 매일 AI를 쓰고 있답니다 😊"</p>
+                            <p class="review-author">김○○ (50대 주부)</p>
+                            <p class="review-course">생성형 AI 활용 교육 수강</p>
+                        </div>
+                        <!-- 후기 2 -->
+                        <div class="review-card">
+                            <div class="review-quote"><i class="fa-solid fa-quote-left"></i></div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">"AI로 홍보 콘텐츠 만드는 법을 배우고 나서<br>인스타 반응이 완전히 달라졌어요.<br>혼자서도 콘텐츠를 뚝딱 만들 수 있게 됐습니다!"</p>
+                            <p class="review-author">이○○ (소상공인)</p>
+                            <p class="review-course">소상공인 마케팅 교육 수강</p>
+                        </div>
+                        <!-- 후기 3 -->
+                        <div class="review-card">
+                            <div class="review-quote"><i class="fa-solid fa-quote-left"></i></div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">"랜딩페이지를 직접 만들어서<br>제 강사 브랜드를 시작할 수 있었어요.<br>URL이 생긴 순간 정말 뿌듯했습니다 🎉"</p>
+                            <p class="review-author">박○○ (예비강사)</p>
+                            <p class="review-course">랜딩페이지 제작 실습 수강</p>
+                        </div>
+                        <!-- 후기 4 -->
+                        <div class="review-card">
+                            <div class="review-quote"><i class="fa-solid fa-quote-left"></i></div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">"유튜브 채널 개설부터 운영까지<br>체계적으로 배울 수 있었어요.<br>선생님 덕분에 구독자가 늘고 있어요!"</p>
+                            <p class="review-author">최○○ (직장인)</p>
+                            <p class="review-course">유튜브 채널 운영 교육 수강</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="slider-btn next-btn" aria-label="다음 후기"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            
+            <!-- 슬라이더 도트 -->
+            <div class="slider-dots" id="slider-dots"></div>
+        </div>
+    </section>
+
+    <!-- 4.7. FAQ (자주 묻는 질문) 섹션 -->
+    <section id="faq" class="fade-in" style="background-color: white;">
+        <div class="container">
+            <h2 class="section-title text-center">자주 묻는 질문 (FAQ)</h2>
+            <div class="faq-container">
+                <!-- Q1 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question">Q1. 컴퓨터를 잘 몰라도 수강할 수 있나요?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-answer"><span class="faq-a-mark">A.</span> 네, 가능합니다! 기초부터 차근차근<br>함께 진행하니 걱정 안 하셔도 됩니다.</p>
+                    </div>
+                </div>
+                <!-- Q2 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question">Q2. 강의는 온라인으로 진행되나요?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-answer"><span class="faq-a-mark">A.</span> 온라인(줌) 기준으로 진행되며<br>지역 무관하게 참여 가능합니다.</p>
+                    </div>
+                </div>
+                <!-- Q3 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question">Q3. 수강료는 얼마인가요?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-answer"><span class="faq-a-mark">A.</span> 강의별 수강료가 다릅니다.<br>카카오 채널로 문의해 주시면<br>자세히 안내해 드립니다.</p>
+                    </div>
+                </div>
+                <!-- Q4 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question">Q4. 1:1 수업도 가능한가요?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-answer"><span class="faq-a-mark">A.</span> 네, 가능합니다.<br>일정과 내용은 협의 후 진행합니다.</p>
+                    </div>
+                </div>
+                <!-- Q5 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question">Q5. 강의 자료는 제공되나요?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-answer"><span class="faq-a-mark">A.</span> 네, 단계별 캡처 자료와<br>프롬프트 세트를 제공합니다.</p>
+                    </div>
+                </div>
+                <!-- Q6 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question">Q6. 수강 후 복습이 가능한가요?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-body">
+                        <p class="faq-answer"><span class="faq-a-mark">A.</span> 녹화본 제공 여부는 강의마다 다릅니다.<br>문의 주시면 안내해 드립니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 5. 문의/신청 섹션 -->
     <section id="contact" class="bg-lavender fade-in">
         <div class="container text-center">
@@ -244,7 +393,7 @@
             <div class="contact-buttons">
                 <a href="tel:010-8997-4224" class="btn btn-primary btn-large"><i class="fa-solid fa-phone"></i> 전화 문의</a>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mocaenglish7@gmail.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-large"><i class="fa-solid fa-envelope"></i> 이메일 문의</a>
-                <a href="https://pf.kakao.com/_MMBKX" target="_blank" rel="noopener noreferrer" class="btn btn-kakao btn-large"><i class="fa-solid fa-comment"></i> 카카오 문의</a>
+                <a href="https://open.kakao.com/o/smKC7wyi" target="_blank" rel="noopener noreferrer" class="btn btn-kakao btn-large"><i class="fa-solid fa-comment"></i> 카카오 문의</a>
             </div>
         </div>
     </section>
@@ -255,6 +404,15 @@
             <p>&copy; 2026 황정임. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- 카카오 플로팅 상담 버튼 영역 -->
+    <div class="kakao-floating-wrap">
+        <div id="kakao-tooltip" class="kakao-tooltip">상담하기</div>
+        <a href="https://open.kakao.com/o/smKC7wyi" target="_blank" rel="noopener noreferrer" class="btn-kakao-floating" aria-label="카카오톡 상담">
+            <span class="kakao-icon">💬</span>
+            <span class="kakao-text">카카오 상담</span>
+        </a>
+    </div>
 
     <!-- 시니어 배려: 글씨 크기 조절 플로팅 버튼 -->
     <div class="font-size-controls">
