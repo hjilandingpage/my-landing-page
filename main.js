@@ -309,12 +309,23 @@ if (reviewTrack) {
 
     function resetInterval() {
         clearInterval(slideInterval);
+        startAutoSlide();
     }
+
+    function startAutoSlide() {
+        slideInterval = setInterval(nextSlide, 3000);
+    }
+
+    // 다음/이전 버튼 이벤트
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
 
     // 마우스를 올리고 있을 때는 멈추고, 떼면 다시 시작 (사용자 배려)
     const sliderWrap = document.querySelector('.review-slider-wrap');
-    sliderWrap.addEventListener('mouseenter', () => clearInterval(slideInterval));
-    sliderWrap.addEventListener('mouseleave', startAutoSlide);
+    if (sliderWrap) {
+        sliderWrap.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        sliderWrap.addEventListener('mouseleave', startAutoSlide);
+    }
 
     startAutoSlide();
 }
