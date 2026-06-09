@@ -174,12 +174,12 @@ function typeEffect() {
         typingCharIndex++;
     }
 
-    // 기본 타이핑 속도(80ms), 지우는 속도(40ms)
-    let typeSpeed = isDeleting ? 40 : 80;
+    // 요청하신 부드러운 타이핑 속도: 쓰는 속도(150ms), 지우는 속도(90ms)
+    let typeSpeed = isDeleting ? 90 : 150;
 
     // 다 썼을 때 대기
     if (!isDeleting && typingCharIndex === currentMessage.length) {
-        typeSpeed = 1500; // 1.5초 대기
+        typeSpeed = 2500; // 2.5초 대기
         isDeleting = true;
     } 
     // 다 지웠을 때 다음 문구로 넘어감
@@ -275,56 +275,40 @@ if (reviewTrack) {
         dot.classList.add('dot');
         if (i === 0) dot.classList.add('active');
         
-        // 점 클릭 시 해당 슬라이드로 이동
         dot.addEventListener('click', () => {
             goToSlide(i);
-            resetAutoSlide();
         });
+        
         dotsContainer.appendChild(dot);
     }
-    
+
     const dots = document.querySelectorAll('.dot');
 
-    // 슬라이드 이동 함수
-    function goToSlide(index) {
-        if (index < 0) {
-            currentSlide = totalSlides - 1; // 처음에서 이전 누르면 맨 끝으로
-        } else if (index >= totalSlides) {
-            currentSlide = 0; // 끝에서 다음 누르면 맨 처음으로
-        } else {
-            currentSlide = index;
-        }
-        
-        // 카드 이동 (100%씩 밀어내기)
-        reviewTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-        
-        // 점 색상 업데이트
+    function updateDots() {
         dots.forEach(dot => dot.classList.remove('active'));
         dots[currentSlide].classList.add('active');
     }
 
-    // 다음/이전 버튼 이벤트
-    nextBtn.addEventListener('click', () => {
-        goToSlide(currentSlide + 1);
-        resetAutoSlide();
-    });
-
-    prevBtn.addEventListener('click', () => {
-        goToSlide(currentSlide - 1);
-        resetAutoSlide();
-    });
-
-    // 3초마다 자동 슬라이드
-    function startAutoSlide() {
-        slideInterval = setInterval(() => {
-            goToSlide(currentSlide + 1);
-        }, 3000);
+    function goToSlide(index) {
+        currentSlide = index;
+        // 100% 이동
+        document.getElementById('review-track').style.transform = `translateX(-${currentSlide * 100}%)`;
+        updateDots();
+        resetInterval();
     }
 
-    // 사용자가 수동으로 조작하면 타이머 초기화 (안 그러면 바로 넘어가버림)
-    function resetAutoSlide() {
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        goToSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        goToSlide(currentSlide);
+    }
+
+    function resetInterval() {
         clearInterval(slideInterval);
-        startAutoSlide();
     }
 
     // 마우스를 올리고 있을 때는 멈추고, 떼면 다시 시작 (사용자 배려)
@@ -333,4 +317,96 @@ if (reviewTrack) {
     sliderWrap.addEventListener('mouseleave', startAutoSlide);
 
     startAutoSlide();
+}
+
+/* ========================================================
+   상담 모달창 (선택창 및 외부 링크 안내 모달) 로직
+======================================================== */
+const consultModal = document.getElementById('consultModal');
+const linkNoticeModal = document.getElementById('linkNoticeModal');
+const confirmLinkBtn = document.getElementById('confirmLinkBtn');
+let pendingUrl = '';
+
+function openConsultModal() {
+    if (consultModal) {
+        consultModal.classList.add('show');
+    }
+}
+
+function closeConsultModal() {
+    if (consultModal) {
+        consultModal.classList.remove('show');
+    }
+}
+
+// 모달 외부 영역 클릭 시 닫기
+window.addEventListener('click', (e) => {
+    if (e.target === consultModal) {
+        closeConsultModal();
+    }
+    if (e.target === linkNoticeModal) {
+        linkNoticeModal.classList.remove('show');
+    }
+});
+
+// 외부 링크 안전하게 열기 (기기별 분기 처리)
+function openLinkSafely(url) {
+    // 이전 모달이 열려있다면 닫기
+    closeConsultModal();
+
+    pendingUrl = url;
+    
+    // 모바일 기기 감지 (화면 너비 768px 이하 기준)
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        // 모바일: 안내 모달 띄우기
+        if (linkNoticeModal) {
+            linkNoticeModal.classList.add('show');
+        } else {
+            window.location.href = url;
+        }
+    } else {
+        // PC: 바로 새 탭
+        window.open(url, '_blank', 'noopener,noreferrer');
+    }
+}
+
+// 안내 모달에서 '이동하기' 버튼 클릭 시
+if (confirmLinkBtn) {
+    confirmLinkBtn.addEventListener('click', () => {
+        linkNoticeModal.classList.remove('show');
+        if (pendingUrl) {
+            // 강사님 요청대로 같은 창(self)으로 이동
+            window.location.href = pendingUrl;
+        }
+    });
+}
+
+/* ========================================================
+   비디오 자동 재생 최적화 (Intersection Observer)
+======================================================== */
+const videos = document.querySelectorAll('.observe-video');
+
+if (videos.length > 0) {
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                // 화면에 30% 이상 들어오면 재생
+                video.play().catch(error => {
+                    console.log("자동재생이 브라우저 정책에 의해 차단되었습니다.", error);
+                });
+            } else {
+                // 밖으로 나가면 멈춤
+                video.pause();
+            }
+        });
+    }, {
+        threshold: 0.3
+    });
+
+    videos.forEach(video => {
+        videoObserver.observe(video);
+    });
 }
