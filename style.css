@@ -486,23 +486,30 @@ header.scrolled .menu-toggle .bar {
     font-weight: 800;
 }
 
-.history-list {
-    list-style: none;
+.history-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     margin: 30px 0;
 }
 
-.history-list li {
-    font-size: 1.15rem;
-    margin-bottom: 15px;
+.info-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 15px;
+    font-size: 1.15rem;
     color: var(--color-text-dark);
 }
 
-.history-list i {
-    color: var(--color-gold);
-    font-size: 1.2rem;
+.info-label {
+    font-weight: 800;
+    min-width: 45px;
+    color: var(--color-purple);
+    white-space: nowrap;
+}
+
+.info-value {
+    line-height: 1.5;
 }
 
 .kdto-btn {
@@ -1121,40 +1128,7 @@ footer {
     }
 }
 
-.kakao-tooltip {
-    background-color: var(--color-white);
-    color: var(--color-text);
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    position: relative;
-    opacity: 0;
-    transform: translateX(10px);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    visibility: hidden;
-}
-
-/* 말풍선 꼬리 */
-.kakao-tooltip::after {
-    content: '';
-    position: absolute;
-    right: -6px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-width: 6px 0 6px 6px;
-    border-style: solid;
-    border-color: transparent transparent transparent var(--color-white);
-}
-
-/* JS로 클래스 추가 시 말풍선 보이기 */
-.kakao-tooltip.show {
-    opacity: 1;
-    transform: translateX(0);
-    visibility: visible;
-}
+/* 말풍선 CSS 제거됨 */
 
 .btn-kakao-floating {
     background-color: #FEE500;

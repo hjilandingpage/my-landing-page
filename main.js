@@ -197,21 +197,7 @@ if (typingTextElement) {
     typeEffect();
 }
 
-// 카카오 상담 플로팅 버튼 말풍선 로직
-const kakaoTooltip = document.getElementById('kakao-tooltip');
-
-if (kakaoTooltip) {
-    // 1. 페이지 로드 후 3초 뒤에 말풍선 표시
-    setTimeout(() => {
-        kakaoTooltip.classList.add('show');
-    }, 3000);
-
-    // 2. 말풍선을 클릭하면 다시 숨김
-    kakaoTooltip.addEventListener('click', () => {
-        kakaoTooltip.classList.remove('show');
-    });
-}
-
+// 카카오 상담 말풍선 로직 제거됨
 // 실적 숫자 카운터 애니메이션 로직
 const statsSection = document.getElementById('stats');
 const counters = document.querySelectorAll('.counter');
