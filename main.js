@@ -360,27 +360,38 @@ window.addEventListener('click', (e) => {
     }
 });
 
-// 외부 링크 안전하게 열기 (기기별 분기 처리)
+// 외부 링크 안전하게 열기 (기본 함수 - 모달 내부 버튼 등에서 사용)
 function openLinkSafely(url) {
     // 이전 모달이 열려있다면 닫기
     closeConsultModal();
-
-    pendingUrl = url;
     
-    // 모바일 기기 감지 (화면 너비 768px 이하 기준)
+    pendingUrl = url;
     const isMobile = window.innerWidth <= 768;
 
     if (isMobile) {
-        // 모바일: 안내 모달 띄우기
         if (linkNoticeModal) {
             linkNoticeModal.classList.add('show');
         } else {
             window.location.href = url;
         }
     } else {
-        // PC: 바로 새 탭
         window.open(url, '_blank', 'noopener,noreferrer');
     }
+}
+
+// 직접 클릭하는 a 태그용 핸들러 (팝업 차단 방지)
+function handleKakaoClick(e, url) {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        // 모바일일 때는 기본 링크 이동을 막고 안내 모달을 띄움
+        e.preventDefault();
+        openLinkSafely(url);
+        return false;
+    }
+    
+    // PC일 때는 기본 링크 이동(target="_blank")을 그대로 허용하여 팝업 차단 방지
+    return true;
 }
 
 // 안내 모달에서 '이동하기' 버튼 클릭 시

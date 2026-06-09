@@ -24,7 +24,7 @@
                 <a href="#contact" class="nav-link">문의</a>
             </nav>
             <div class="nav-right">
-                <a href="javascript:void(0)" onclick="openLinkSafely('https://open.kakao.com/o/smKC7wyi')" class="btn-nav-kakao">카카오 상담</a>
+                <a href="https://open.kakao.com/o/smKC7wyi" target="_blank" onclick="return handleKakaoClick(event, this.href)" class="btn-nav-kakao">카카오 상담</a>
                 <div class="menu-toggle" id="mobile-menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -408,7 +408,7 @@
     <!-- 카카오 플로팅 상담 버튼 영역 -->
     <div class="kakao-floating-wrap">
         <div id="kakao-tooltip" class="kakao-tooltip">상담하기</div>
-        <a href="javascript:void(0)" onclick="openLinkSafely('https://open.kakao.com/o/smKC7wyi')" class="btn-kakao-floating" aria-label="카카오톡 상담">
+        <a href="https://open.kakao.com/o/smKC7wyi" target="_blank" onclick="return handleKakaoClick(event, this.href)" class="btn-kakao-floating" aria-label="카카오톡 상담">
             <span class="kakao-icon">💬</span>
             <span class="kakao-text">카카오 상담</span>
         </a>
@@ -444,6 +444,6 @@
         </div>
     </div>
 
-    <script src="main.js?v=2.1"></script>
+    <script src="main.js?v=2.2"></script>
 </body>
 </html>
