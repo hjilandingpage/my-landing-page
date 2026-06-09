@@ -24,7 +24,7 @@
                 <a href="#contact" class="nav-link">문의</a>
             </nav>
             <div class="nav-right">
-                <a href="#contact" class="btn-nav-kakao">카카오 상담</a>
+                <a href="javascript:void(0)" onclick="openLinkSafely('https://open.kakao.com/o/smKC7wyi')" class="btn-nav-kakao">카카오 상담</a>
                 <div class="menu-toggle" id="mobile-menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -42,7 +42,7 @@
                 <div class="typing-container">
                     <span id="typing-text"></span><span class="typing-cursor">|</span>
                 </div>
-                <a href="#contact" class="btn btn-primary">수강 신청하기</a>
+                <button onclick="openConsultModal()" class="btn btn-secondary">상담하기</button>
             </div>
             <div class="hero-image">
                 <img src="profile.png" alt="황정임 강사 프로필">
@@ -182,28 +182,28 @@
             <div class="video-grid">
                 <!-- 첫 번째 영상 -->
                 <div class="video-wrapper">
-                    <video controls>
+                    <video class="observe-video" muted playsinline loop>
                         <source src="video1.mp4.mp4" type="video/mp4">
                         해당 브라우저에서는 동영상을 지원하지 않습니다.
                     </video>
                 </div>
                 <!-- 두 번째 영상 -->
                 <div class="video-wrapper">
-                    <video controls>
+                    <video class="observe-video" muted playsinline loop>
                         <source src="video2.mp4.mp4" type="video/mp4">
                         해당 브라우저에서는 동영상을 지원하지 않습니다.
                     </video>
                 </div>
                 <!-- 세 번째 영상 -->
                 <div class="video-wrapper">
-                    <video controls>
+                    <video class="observe-video" muted playsinline loop>
                         <source src="video3.mp4.mp4" type="video/mp4">
                         해당 브라우저에서는 동영상을 지원하지 않습니다.
                     </video>
                 </div>
                 <!-- 네 번째 영상 -->
                 <div class="video-wrapper">
-                    <video controls>
+                    <video class="observe-video" muted playsinline loop>
                         <source src="video4.mp4.mp4" type="video/mp4">
                         해당 브라우저에서는 동영상을 지원하지 않습니다.
                     </video>
@@ -408,7 +408,7 @@
     <!-- 카카오 플로팅 상담 버튼 영역 -->
     <div class="kakao-floating-wrap">
         <div id="kakao-tooltip" class="kakao-tooltip">상담하기</div>
-        <a href="https://open.kakao.com/o/smKC7wyi" target="_blank" rel="noopener noreferrer" class="btn-kakao-floating" aria-label="카카오톡 상담">
+        <a href="javascript:void(0)" onclick="openLinkSafely('https://open.kakao.com/o/smKC7wyi')" class="btn-kakao-floating" aria-label="카카오톡 상담">
             <span class="kakao-icon">💬</span>
             <span class="kakao-text">카카오 상담</span>
         </a>
@@ -418,6 +418,30 @@
     <div class="font-size-controls">
         <button id="btn-font-normal" class="font-btn active" aria-label="기본 글씨 크기">A</button>
         <button id="btn-font-large" class="font-btn" aria-label="글씨 크게">A+</button>
+    </div>
+
+    <!-- 상담 모달 (선택창) -->
+    <div id="consultModal" class="modal-overlay">
+        <div class="modal-content text-center">
+            <button class="modal-close" onclick="closeConsultModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="modal-title">상담 방식을 선택해 주세요</h3>
+            <p class="modal-notice"><i class="fa-solid fa-circle-info"></i> 상담 후에는 창을 닫고 랜딩페이지로 돌아오세요.</p>
+            <div class="modal-buttons">
+                <button onclick="openLinkSafely('https://open.kakao.com/o/smKC7wyi')" class="btn btn-kakao modal-btn-large"><i class="fa-solid fa-comment"></i> 카카오로 바로 상담하기</button>
+                <a href="tel:010-8997-4224" class="btn btn-primary modal-btn-large"><i class="fa-solid fa-phone"></i> 전화 문의하기</a>
+                <button onclick="openLinkSafely('https://mail.google.com/mail/?view=cm&fs=1&to=mocaenglish7@gmail.com')" class="btn btn-secondary modal-btn-large"><i class="fa-solid fa-envelope"></i> 이메일 문의하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 외부 링크 이동 안내 모달 -->
+    <div id="linkNoticeModal" class="modal-overlay">
+        <div class="modal-content text-center">
+            <div class="notice-icon"><i class="fa-regular fa-comment-dots"></i></div>
+            <h3 class="modal-title">상담 창으로 이동합니다</h3>
+            <p class="modal-desc">상담을 마치신 후에는 꼭 돌아오셔서<br>남은 내용을 확인해 보세요!</p>
+            <button class="btn btn-primary modal-btn-large" id="confirmLinkBtn" style="margin-top: 20px;">이동하기</button>
+        </div>
     </div>
 
     <script src="main.js"></script>
